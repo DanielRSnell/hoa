@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Timber\Timber;
 use VillaCapriani\Core\Editor;
 use VillaCapriani\Core\Gutenberg;
-use VillaCapriani\Fields\Components;
+use VillaCapriani\Models\Components;
 use VillaCapriani\PostTypes\Announcement;
 use VillaCapriani\PostTypes\Roadmap;
 
