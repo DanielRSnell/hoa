@@ -1,0 +1,39 @@
+{# Updated template to use query_results instead of executing query directly #}
+<div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+  {% for post in query_results %}
+    <section id="{{ post.date|date('Y-m-d') }}" aria-labelledby="{{ post.date|date('Y-m-d') }}-heading" class="md:flex">
+      <h2 id="{{ post.date|date('Y-m-d') }}-heading" class="pl-7 text-sm/6 text-slate-500 md:w-1/4 md:pr-12 md:pl-0 md:text-right">
+        <a href="#{{ post.date|date('Y-m-d') }}">{{ post.date|date(settings.date_format) }}</a>
+      </h2>
+      
+      <div class="relative pt-2 pl-7 md:w-3/4 md:pt-0 md:pl-12 pb-16">
+        <div class="absolute bottom-0 left-0 w-px bg-slate-200 -top-3 md:top-2.5"></div>
+        <div class="absolute -top-[1.0625rem] -left-1 h-[0.5625rem] w-[0.5625rem] rounded-full border-2 border-slate-300 bg-white md:top-[0.4375rem]"></div>
+        
+        <div class="prose-h3:mb-4 prose-h3:text-base/6 max-w-none prose prose-sm prose-slate prose-a:font-semibold prose-a:text-sky-500 prose-a:no-underline prose-a:hover:text-sky-600 prose-code:text-[13px]/[1.692] prose-pre:rounded-lg prose-pre:px-4 prose-pre:py-[0.875rem]">
+          <h3>{{ post.title }}</h3>
+          
+          <div class="content">
+            {% if settings.show_images and post.thumbnail %}
+              <img class="rounded-xl" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}">
+            {% endif %}
+            
+            <div class="mt-4">
+              {% if settings.excerpt_length %}
+                {{ post.preview.length(settings.excerpt_length) }}
+              {% else %}
+                {{ post.preview }}
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <a href="{{ post.link }}" class="text-sky-500 hover:text-sky-600">
+              Read more <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endfor %}
+</div>
