@@ -1,0 +1,12 @@
+{
+  "name": "villacapriani/theme",
+  "description": "Villa Capriani WordPress Theme",
+  "require": {
+    "timber/timber": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "VillaCapriani\\": "inc/"
+    }
+  }
+}

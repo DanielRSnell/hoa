@@ -1,0 +1,12 @@
+<section class="hero" {% if image %}style="background-image: url('{{ image.url }}');"{% endif %}>
+  <div class="hero__content">
+    {% if title %}
+      <h1>{{ title }}</h1>
+    {% endif %}
+    {% if content %}
+      <div class="hero__text">
+        {{ content }}
+      </div>
+    {% endif %}
+  </div>
+</section>

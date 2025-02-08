@@ -1,0 +1,5 @@
+vendor
+node_modules
+pnpm-lock.yaml
+.DS_Store
+composer.lock

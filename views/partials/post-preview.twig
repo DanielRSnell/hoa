@@ -1,0 +1,8 @@
+<article class="post-preview">
+  <h2><a href="{{ post.link }}">{{ post.title }}</a></h2>
+  {% if post.thumbnail %}
+    <img src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}">
+  {% endif %}
+  <div class="excerpt">{{ post.preview }}</div>
+  <a href="{{ post.link }}" class="read-more">Read More</a>
+</article>

@@ -1,0 +1,13 @@
+{% extends "layouts/base.twig" %}
+
+{% block content %}
+  <div class="posts">
+    <div class="container">
+      {% for post in posts %}
+        {% include "partials/post-preview.twig" %}
+      {% endfor %}
+      
+      {% include "partials/pagination.twig" %}
+    </div>
+  </div>
+{% endblock %}

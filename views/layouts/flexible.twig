@@ -1,0 +1,7 @@
+{% extends "layouts/base.twig" %}
+
+{% block content %}
+  {% for component in components %}
+    {% include component.template with component.data %}
+  {% endfor %}
+{% endblock %}

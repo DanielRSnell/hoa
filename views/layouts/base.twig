@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+<head>
+  <meta charset="{{ site.charset }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ function('wp_head') }}
+</head>
+<body class="{{ body_class }}">
+  <header>
+    <nav>
+      {% include "partials/menu.twig" with {'menu': menu.get_items} %}
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; {{ "now"|date('Y') }} Villa Capriani</p>
+  </footer>
+  {{ function('wp_footer') }}
+</body>
+</html>

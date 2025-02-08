@@ -1,0 +1,19 @@
+{% if posts.pagination.pages is not empty %}
+  <nav class="pagination">
+    {% if pagination.prev %}
+      <a href="{{ pagination.prev.link }}" class="prev">Previous</a>
+    {% endif %}
+    
+    {% for page in pagination.pages %}
+      {% if page.link %}
+        <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
+      {% else %}
+        <span class="{{ page.class }}">{{ page.title }}</span>
+      {% endif %}
+    {% endfor %}
+    
+    {% if pagination.next %}
+      <a href="{{ pagination.next.link }}" class="next">Next</a>
+    {% endif %}
+  </nav>
+{% endif %}
