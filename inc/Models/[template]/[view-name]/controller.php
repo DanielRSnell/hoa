@@ -1,5 +1,5 @@
 <?php
-namespace VillaCapriani\Fields\Components\Hero;
+namespace VillaCapriani\Models\Components\Hero;
 
 class Controller
 {

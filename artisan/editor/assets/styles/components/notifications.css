@@ -1,0 +1,107 @@
+a {
+  text-decoration: none !important;
+}
+
+.acf-tooltip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  padding: 1rem;
+  min-width: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.acf-tooltip.-confirm {
+  background: var(--card);
+  color: var(--muted-foreground);
+}
+
+.acf-tooltip a {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  display: block;
+}
+
+.acf-tooltip a[data-event="confirm"] {
+  background: var(--slate-900);
+  color: var(--white) !important;
+}
+
+.acf-tooltip a[data-event="cancel"] {
+  background: var(--card);
+  color: var(--slate-600);
+  border: 1px solid var(--border);
+}
+
+.acf-notice {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgb(220 38 38 / 0.1);
+  color: rgb(220 38 38);
+  border: none;
+}
+
+.acf-notice.-error {
+  background: rgb(220 38 38 / 0.1) !important;
+  color: rgb(220 38 38) !important;
+}
+
+.acf-notice p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.acf-notice-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  color: currentColor;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.acf-notice-dismiss:hover {
+  opacity: 1;
+}
+
+.acf-notice-dismiss.-cancel::before {
+  content: "×";
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.acf-error-message:not(.-dismiss) {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgb(254 242 242) !important;
+  border: 1px solid rgb(254 226 226);
+  color: rgb(153 27 27);
+}

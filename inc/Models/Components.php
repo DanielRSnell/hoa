@@ -3,7 +3,7 @@ namespace VillaCapriani\Models;
 
 class Components
 {
-    protected static $componentNamespace = 'VillaCapriani\\Fields\\Components\\';
+    protected static $componentNamespace = 'VillaCapriani\\Models\\Components\\';
     protected static $componentDirectory;
 
     public static function register()
