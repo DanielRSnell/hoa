@@ -32,8 +32,11 @@ class FlexibleContent {
     }
 
     foreach ($layouts as $layout) {
+      $componentType = $layout['acf_fc_layout'];
+      $variant = isset($layout['variant']) ? $layout['variant'] : 'default';
+      
       $components[] = [
-        'template' => 'components/' . $layout['acf_fc_layout'] . '.twig',
+        'template' => "components/{$componentType}/{$variant}.twig",
         'data' => $layout
       ];
     }

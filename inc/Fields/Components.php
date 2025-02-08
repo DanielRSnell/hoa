@@ -49,11 +49,43 @@ class Components {
       if (class_exists($fullClassName) && method_exists($fullClassName, 'getLayout')) {
         $layout = $fullClassName::getLayout();
         if (isset($layout['name'])) {
+          // Get available variants
+          $variants = self::getVariants($layout['name']);
+          
+          // Add variant field if variants exist
+          if (!empty($variants)) {
+            array_unshift($layout['sub_fields'], [
+              'key' => "field_{$layout['name']}_variant",
+              'label' => 'Variant',
+              'name' => 'variant',
+              'type' => 'select',
+              'choices' => $variants,
+              'required' => 1
+            ]);
+          }
+          
           $layouts[$layout['name']] = $layout;
         }
       }
     }
 
     return $layouts;
+  }
+
+  private static function getVariants($componentName) {
+    $variants = [];
+    $viewsPath = get_template_directory() . '/views/components/' . $componentName;
+    
+    if (!is_dir($viewsPath)) {
+      return $variants;
+    }
+
+    $files = glob($viewsPath . '/*.twig');
+    foreach ($files as $file) {
+      $filename = pathinfo($file, PATHINFO_FILENAME);
+      $variants[$filename] = $filename;
+    }
+
+    return $variants;
   }
 }

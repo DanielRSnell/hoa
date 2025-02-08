@@ -1,12 +1,61 @@
-<section class="hero" {% if image %}style="background-image: url('{{ image.url }}');"{% endif %}>
-  <div class="hero__content">
-    {% if title %}
-      <h1>{{ title }}</h1>
-    {% endif %}
-    {% if content %}
-      <div class="hero__text">
-        {{ content }}
+<div class="relative isolate overflow-hidden" 
+  {% if style.background.type == 'color' %}
+    style="background-color: {{ style.background.color }}"
+  {% else %}
+    style="background: linear-gradient(to bottom, {{ style.background.gradient_start }}, {{ style.background.gradient_end }})"
+  {% endif %}
+>
+  <div class="mx-auto max-w-7xl {{ layout.spacing.top }} {{ layout.spacing.bottom }} sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+    <div class="px-6 lg:px-0 lg:pt-4 {% if layout.direction == 'rtl' %}order-2{% endif %}">
+      <div class="mx-auto max-w-2xl">
+        <div class="max-w-lg">
+          <h1 class="mt-10 text-4xl font-bold tracking-tight sm:text-6xl" style="color: {{ style.colors.text }}">
+            {{ title }}
+          </h1>
+          <div class="mt-6 text-lg leading-8" style="color: {{ style.colors.content }}">
+            {{ content }}
+          </div>
+          <div class="mt-10 flex items-center gap-x-6">
+            <a 
+              href="{{ cta_primary.url }}" 
+              class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" 
+              style="background-color: {{ style.colors.accent }}"
+            >
+              {{ cta_primary.text }}
+            </a>
+            <a 
+              href="{{ cta_secondary.url }}" 
+              class="text-sm font-semibold leading-6"
+              style="color: {{ style.colors.text }}"
+            >
+              {{ cta_secondary.text }} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
       </div>
-    {% endif %}
+    </div>
+    <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen {% if layout.direction == 'rtl' %}order-1{% endif %}">
+      <div class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl ring-1 ring-gray-200 md:-mr-20 lg:-mr-36" aria-hidden="true"></div>
+      <div class="{{ image.effects.shadow }} md:rounded-3xl">
+        <div style="background-color: {{ style.colors.accent }}" class="[clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
+          <div class="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] opacity-20 ring-1 ring-inset ring-white md:ml-20 lg:ml-36" aria-hidden="true" style="background-color: {{ style.colors.accent }}"></div>
+          <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
+            <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
+              <div class="w-full overflow-hidden rounded-xl bg-gray-900 {{ image.effects.shadow }} {{ image.effects.border }} ring-white/10">
+                <img 
+                  src="{{ image.file.url }}" 
+                  alt="{{ image.file.alt }}" 
+                  width="{{ image.file.width }}" 
+                  height="{{ image.file.height }}" 
+                  class="w-full"
+                >
+              </div>
+            </div>
+            <div class="absolute inset-0 pointer-events-none {{ image.effects.border }} ring-inset ring-black/10 md:rounded-3xl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+  <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"></div>
+</div>
