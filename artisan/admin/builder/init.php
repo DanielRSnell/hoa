@@ -46,7 +46,7 @@ class Controller
                 'all_items' => 'Layouts',
                 'menu_name' => 'Layouts',
             ],
-            'public' => true,
+            'public' => false,
             'publicly_queryable' => true,
             'show_ui' => true,
             'show_in_menu' => 'builder',

@@ -31,6 +31,11 @@ class Components
                     [
                         'param' => 'post_type',
                         'operator' => '==',
+                        'value' => 'layout',
+                    ],
+                    [
+                        'param' => 'post_type',
+                        'operator' => '==',
                         'value' => 'page',
                     ],
                 ],

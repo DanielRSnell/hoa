@@ -23,10 +23,6 @@ class Locations
             get_stylesheet_directory() . '/views/core',
         ];
 
-        $paths['editor'] = [
-            get_stylesheet_directory() . '/artisan/editor',
-        ];
-
         return $paths;
     }
 }

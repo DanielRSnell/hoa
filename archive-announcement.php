@@ -1,5 +1,4 @@
 <?php
-use Artisan\Editor\EditorHelper;
 
 $context = Timber::context();
 $context['posts'] = Timber::get_posts();
