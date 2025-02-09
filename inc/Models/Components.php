@@ -47,6 +47,7 @@ class Components
             'style' => 'default',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
+            'show_in_rest' => true,
             'active' => true,
         ]);
 

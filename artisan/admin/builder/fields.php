@@ -71,6 +71,7 @@ add_action('acf/init', function () {
             'style' => 'default',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
+            'show_in_rest' => true,
             'hide_on_screen' => '',
             'active' => true,
         ]);

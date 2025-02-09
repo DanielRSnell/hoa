@@ -1,19 +1,11 @@
 <?php
 namespace Artisan\Editor;
 
-use Artisan\Editor\Handlers\AssetsHandler;
-use Artisan\Editor\Handlers\ClassesHandler;
-use Artisan\Editor\Handlers\InitHandler;
-use Artisan\Editor\Handlers\TemplateHandler;
-
 class Editor
 {
     private static $instance = null;
     private $version = '1.0.0';
-    private $assets_handler;
-    private $classes_handler;
-    private $init_handler;
-    private $template_handler;
+    private $handlers = [];
 
     public static function getInstance()
     {
@@ -25,16 +17,27 @@ class Editor
 
     private function __construct()
     {
-        $this->assets_handler = new AssetsHandler($this->version);
-        $this->classes_handler = new ClassesHandler();
-        $this->init_handler = new InitHandler();
-        $this->template_handler = new TemplateHandler();
+        // Initialize handlers
+        $this->handlers = [
+            'assets' => new Handlers\AssetsHandler($this->version),
+            'classes' => new Handlers\ClassesHandler(),
+            'init' => new Handlers\InitHandler(),
+            'context' => new Handlers\ContextHandler(),
+            'rules' => new Handlers\RulesHandler(),
+            'render' => new Handlers\RenderHandler(
+                $this->getHandler('context'),
+                $this->getHandler('rules')
+            ),
+        ];
     }
 
-    public function renderEditor($context = [])
+    public function render($context = [])
     {
-        return $this->template_handler->renderEditor($context);
+        return $this->getHandler('render')->render($context);
+    }
+
+    private function getHandler($name)
+    {
+        return $this->handlers[$name] ?? null;
     }
 }
-
-return Editor::getInstance();
