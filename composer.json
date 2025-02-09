@@ -6,7 +6,8 @@
   },
   "autoload": {
     "psr-4": {
-      "VillaCapriani\\": "inc/"
+      "VillaCapriani\\": "inc/",
+      "Artisan\\": "artisan/"
     }
   }
 }
