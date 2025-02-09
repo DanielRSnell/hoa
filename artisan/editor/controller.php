@@ -9,8 +9,8 @@ class Editor
 
     public function __construct()
     {
-        $this->styles_path = get_template_directory() . '/includes/editor/assets/styles';
-        $this->scripts_path = get_template_directory() . '/includes/editor/assets/scripts';
+        $this->styles_path = get_template_directory() . '/artisan/editor/assets/styles';
+        $this->scripts_path = get_template_directory() . '/artisan/editor/assets/scripts';
 
         add_action('init', [$this, 'init']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
@@ -39,7 +39,7 @@ class Editor
     {
         wp_enqueue_style(
             'wp-handoff-admin',
-            get_template_directory_uri() . '/includes/editor/assets/styles/admin.css',
+            get_template_directory_uri() . '/artisan/editor/assets/styles/admin.css',
             [],
             $this->version
         );
@@ -60,14 +60,14 @@ class Editor
     {
         wp_enqueue_style(
             'wp-handoff-editor',
-            get_template_directory_uri() . '/includes/editor/assets/styles/editor.css',
+            get_template_directory_uri() . '/artisan/editor/assets/styles/editor.css',
             [],
             $this->version
         );
 
         wp_enqueue_script(
             'wp-handoff-editor',
-            get_template_directory_uri() . '/includes/editor/assets/scripts/editor.js',
+            get_template_directory_uri() . '/artisan/editor/assets/scripts/editor.js',
             ['jquery', 'acf-input'],
             $this->version,
             true
@@ -94,14 +94,14 @@ class Editor
     {
         wp_enqueue_style(
             'wp-handoff-layout',
-            get_template_directory_uri() . '/includes/editor/assets/styles/layout.css',
+            get_template_directory_uri() . '/artisan/editor/assets/styles/layout.css',
             [],
             $this->version
         );
 
         wp_enqueue_script(
             'wp-handoff-layout',
-            get_template_directory_uri() . '/includes/editor/assets/scripts/layout.js',
+            get_template_directory_uri() . '/artisan/editor/assets/scripts/layout.js',
             ['jquery', 'acf-input', 'wp-handoff-editor'],
             $this->version,
             true
@@ -146,7 +146,7 @@ class Editor
 
     public function loadEditorTemplate($template)
     {
-        return get_template_directory() . '/includes/editor/views/render-editor.php';
+        return get_template_directory() . '/artisan/editor/views/render-editor.php';
     }
 
     public function getEditorStyles()

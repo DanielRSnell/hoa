@@ -37,7 +37,7 @@ class Components
             ],
             'menu_order' => 0,
             'position' => 'normal',
-            'style' => 'seamless',
+            'style' => 'default',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
             'active' => true,

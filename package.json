@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx @tailwindcss/cli -i ./styles/tailwind.css -o ./styles/output/_compiled.css",
-    "watch:css": "npx @tailwindcss/cli -i ./styles/tailwind.css -o ./styles/output/_compiled.css --watch",
-    "artisan": "node cli/generate.js"
+    "build:css": "npx @tailwindcss/cli -i ./styles/tailwind.css -o ./styles/compile.css",
+    "watch:css": "npx @tailwindcss/cli -i ./styles/tailwind.css -o ./styles/compile.css --watch",
+    "artisan": "node cli/index.js",
+    "artisan:generate": "node cli/generate.js",
+    "artisan:git": "node cli/git.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "@tailwindcss/cli": "^4.0.5",
     "tailwindcss": "^4.0.5",
     "inquirer": "^8.2.5",
-    "chalk": "^4.1.2"
+    "chalk": "^4.1.2",
+    "child_process": "^1.0.2"
   }
 }

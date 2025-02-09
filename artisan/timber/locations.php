@@ -24,7 +24,7 @@ class Locations
         ];
 
         $paths['editor'] = [
-            get_stylesheet_directory() . '/includes/editor',
+            get_stylesheet_directory() . '/artisan/editor',
         ];
 
         return $paths;

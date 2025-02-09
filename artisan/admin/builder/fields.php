@@ -8,7 +8,7 @@ if (!function_exists('acf_add_local_field_group')) {
 add_action('acf/input/admin_enqueue_scripts', function () {
     wp_enqueue_script(
         'preview-controls',
-        get_template_directory_uri() . '/includes/admin/builder/assets/js/preview-controls.js',
+        get_template_directory_uri() . '/artisan/admin/builder/assets/js/preview-controls.js',
         ['jquery', 'acf-input'],
         '1.0.0',
         true

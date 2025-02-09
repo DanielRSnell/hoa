@@ -33,7 +33,7 @@ acf_form([
         <iframe src="<?php echo add_query_arg('editor', 'preview', get_permalink()); ?>" frameborder="0"></iframe>
     </div>
 </div>
-<script type="module" src="<?php echo get_template_directory_uri(); ?>/includes/editor/assets/scripts/editor.js"></script>
+<script type="module" src="<?php echo get_template_directory_uri(); ?>/artisan/editor/assets/scripts/editor.js"></script>
 <?php wp_footer();?>
 </body>
 </html>

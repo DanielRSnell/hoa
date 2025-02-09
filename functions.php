@@ -19,6 +19,7 @@ add_theme_support('menus');
 
 // Initialize Builder
 $builder = require_once __DIR__ . '/artisan/admin/builder/init.php';
+$editor = require_once __DIR__ . '/artisan/editor/controller.php';
 
 // Register Post Types and Fields
 add_action('init', function () {
@@ -43,9 +44,9 @@ function enqueue_custom_styles()
 {
     wp_enqueue_style(
         'custom-tailwind',
-        get_stylesheet_directory_uri() . '/styles/output/_compiled.css',
+        get_stylesheet_directory_uri() . '/styles/compile.css',
         [],
-        filemtime(get_stylesheet_directory() . '/styles/output/_compiled.css'),
+        filemtime(get_stylesheet_directory() . '/styles/compile.css'),
         'all'
     );
 }
