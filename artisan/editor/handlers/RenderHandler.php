@@ -21,13 +21,29 @@ class RenderHandler
             return false;
         }
 
-        // Check if user is logged in
-        if (!is_user_logged_in()) {
+        // Check if user is logged in and can edit
+        if (!current_user_can('edit_posts')) {
             return false;
         }
 
-        // Check for matching layout
+        // For pages, check if components field exists
+        if (is_page()) {
+            return $this->hasComponentField();
+        }
+
+        // For other contexts, check for matching layout
         return $this->rulesHandler->hasMatchingLayout();
+    }
+
+    private function hasComponentField()
+    {
+        if (!function_exists('get_field')) {
+            return false;
+        }
+
+        // Check if the components field exists for this page
+        $components = get_field('components');
+        return $components !== null; // Returns true even if empty array, false if field doesn't exist
     }
 
     public function render($context = [])
@@ -43,6 +59,20 @@ class RenderHandler
 
         // Merge contexts
         $mergedContext = $this->contextHandler->mergeContext($context);
+
+        // Add editor-specific data
+        $mergedContext['editor'] = [
+            'post_id' => get_the_ID(),
+            'form' => [
+                'post_id' => get_the_ID(),
+                'post_title' => false,
+                'post_content' => false,
+                'submit_value' => 'Update',
+                'return' => add_query_arg('editor', 'true', get_permalink()),
+            ],
+        ];
+
+        echo 'Editor Rendered';
 
         // Render the editor template
         Timber::render('@editor/layout.twig', $mergedContext);

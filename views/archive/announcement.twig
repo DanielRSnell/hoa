@@ -1,0 +1,40 @@
+{% extends "layouts/flexible.twig" %}
+
+{% block content %}
+  {# If no components are found, show default archive layout #}
+  {% if not components %}
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold mb-8">{{ title }}</h1>
+      
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for post in posts %}
+          <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            {% if post.thumbnail %}
+              <img 
+                src="{{ post.thumbnail.src }}" 
+                alt="{{ post.thumbnail.alt }}" 
+                class="w-full h-48 object-cover"
+              >
+            {% endif %}
+            
+            <div class="p-6">
+              <h2 class="text-xl font-semibold mb-2">
+                <a href="{{ post.link }}" class="hover:text-blue-600">
+                  {{ post.title }}
+                </a>
+              </h2>
+              
+              <div class="text-gray-600 mb-4">
+                {{ post.preview.length(20) }}
+              </div>
+              
+              <a href="{{ post.link }}" class="text-blue-600 hover:text-blue-800">
+                Read More →
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

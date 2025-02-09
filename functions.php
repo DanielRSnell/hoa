@@ -19,6 +19,7 @@ add_theme_support('menus');
 
 // Initialize Builder
 $builder = require_once __DIR__ . '/artisan/admin/builder/init.php';
+$locations = new Artisan\Timber\Locations();
 
 // Initialize Editor - UPDATED THIS LINE
 $editor = Artisan\Editor\Editor::getInstance();

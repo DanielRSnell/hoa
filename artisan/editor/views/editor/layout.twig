@@ -3,22 +3,21 @@
   <head>
     <meta charset="{{ site.charset }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style></style>
     {{ function('wp_head') }}
   </head>
   <body {{ body_class }}>
     <div class="umbral-editor">
-      {{ example }}
       <div class="umbral-editor__sidebar">
         <div class="umbral-editor__form">
-          <div class="umbral-editor__form-content">{{ createEditorForm(editor.form) }}</div>
+          <div class="umbral-editor__form-content">
+            {{ createEditorForm(editor.form) }}
+          </div>
         </div>
       </div>
       <div class="umbral-editor__preview">
         <iframe src="{{ post.link }}?editor=preview" frameborder="0"></iframe>
       </div>
     </div>
-    <script type="module" src="{{ theme.link }}/artisan/editor/assets/scripts/editor.js"></script>
     {{ function('wp_footer') }}
   </body>
 </html>
