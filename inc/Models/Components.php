@@ -33,6 +33,8 @@ class Components
                         'operator' => '==',
                         'value' => 'layout',
                     ],
+                ],
+                [
                     [
                         'param' => 'post_type',
                         'operator' => '==',
@@ -47,6 +49,7 @@ class Components
             'instruction_placement' => 'label',
             'active' => true,
         ]);
+
     }
 
     protected static function getComponentLayouts()
