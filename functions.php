@@ -19,7 +19,10 @@ add_theme_support('menus');
 
 // Initialize Builder
 $builder = require_once __DIR__ . '/artisan/admin/builder/init.php';
-$editor = require_once __DIR__ . '/artisan/editor/controller.php';
+
+// Initialize Editor - UPDATED THIS LINE
+$editor = Artisan\Editor\Editor::getInstance();
+
 require_once __DIR__ . '/artisan/timber/functions/editor.php';
 
 // Register Post Types and Fields

@@ -19,6 +19,7 @@ class AssetsHandler
 
     public function enqueueAssets($hook)
     {
+        // Always load admin styles in admin
         wp_enqueue_style(
             'wp-handoff-admin',
             get_template_directory_uri() . '/artisan/editor/assets/styles/admin.css',
@@ -26,9 +27,13 @@ class AssetsHandler
             $this->version
         );
 
+        // Load editor assets
         $this->enqueueEditorAssets();
+
+        // Load layout specific assets
         $this->enqueueLayoutAssets();
 
+        // If we're on a layout screen, ensure media and editor are available
         if ($this->isLayoutScreen()) {
             wp_enqueue_media();
             wp_enqueue_editor();
@@ -61,6 +66,7 @@ class AssetsHandler
             'editorSettings' => $this->getEditorSettings(),
         ]);
 
+        // Make editor.js load as a module
         add_filter('script_loader_tag', function ($tag, $handle, $src) {
             if ($handle === 'wp-handoff-editor') {
                 return '<script type="module" src="' . esc_url($src) . '"></script>';
