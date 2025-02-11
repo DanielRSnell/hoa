@@ -11,13 +11,16 @@ class AssetsHandler
     {
         $this->version = $version;
         $this->styles_path = get_template_directory() . '/artisan/editor/assets/styles';
-        $this->scripts_path = get_template_directory() . '/artisan/editor/assets/scripts';
+        $this->scripts_path = get_template_directory_uri() . '/artisan/editor/assets/scripts';
         
-        add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAdminAssets']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueFrontendAssets']);
+        
         add_action('admin_head', [$this, 'addInlineStyles']);
+        add_action('wp_head', [$this, 'addEditorInlineStyles']);
     }
 
-    public function enqueueAssets($hook)
+    public function enqueueAdminAssets($hook)
     {
         // Always load admin styles in admin
         wp_enqueue_style(
@@ -27,11 +30,42 @@ class AssetsHandler
             $this->version
         );
 
-        // Load editor assets
-        $this->enqueueEditorAssets();
+        // Always load editor styles in admin
+        wp_enqueue_style(
+            'wp-handoff-editor',
+            get_template_directory_uri() . '/artisan/editor/assets/styles/editor.css',
+            [],
+            $this->version
+        );
 
-        // Load layout specific assets
-        $this->enqueueLayoutAssets();
+        // Always load editor script in admin
+        wp_enqueue_script(
+            'wp-handoff-editor',
+            $this->scripts_path . '/editor.js',
+            ['jquery', 'acf-input'],
+            $this->version,
+            true
+        );
+
+        $current_screen = function_exists('\get_current_screen') ? \get_current_screen() : null;
+        $screen_id = $current_screen ? $current_screen->id : '';
+
+        wp_localize_script('wp-handoff-editor', 'wpHandoff', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('wp_handoff_nonce'),
+            'isEditor' => true,
+            'isPreview' => $this->isPreviewMode(),
+            'currentScreen' => $screen_id,
+            'editorSettings' => $this->getEditorSettings(),
+        ]);
+
+        // Make editor.js load as a module
+        add_filter('script_loader_tag', function ($tag, $handle, $src) {
+            if ($handle === 'wp-handoff-editor') {
+                return '<script type="module" src="' . esc_url($src) . '"></script>';
+            }
+            return $tag;
+        }, 10, 3);
 
         // If we're on a layout screen, ensure media and editor are available
         if ($this->isLayoutScreen()) {
@@ -40,8 +74,13 @@ class AssetsHandler
         }
     }
 
-    private function enqueueEditorAssets()
+    public function enqueueFrontendAssets()
     {
+        // Only load editor assets if editor mode is active
+        if (!$this->isEditorMode()) {
+            return;
+        }
+
         wp_enqueue_style(
             'wp-handoff-editor',
             get_template_directory_uri() . '/artisan/editor/assets/styles/editor.css',
@@ -51,18 +90,21 @@ class AssetsHandler
 
         wp_enqueue_script(
             'wp-handoff-editor',
-            get_template_directory_uri() . '/artisan/editor/assets/scripts/editor.js',
+            $this->scripts_path . '/editor.js',
             ['jquery', 'acf-input'],
             $this->version,
             true
         );
 
+        $current_screen = function_exists('\get_current_screen') ? \get_current_screen() : null;
+        $screen_id = $current_screen ? $current_screen->id : '';
+
         wp_localize_script('wp-handoff-editor', 'wpHandoff', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('wp_handoff_nonce'),
-            'isEditor' => $this->isEditorMode(),
+            'isEditor' => true,
             'isPreview' => $this->isPreviewMode(),
-            'currentScreen' => get_current_screen()->id,
+            'currentScreen' => $screen_id,
             'editorSettings' => $this->getEditorSettings(),
         ]);
 
@@ -75,27 +117,16 @@ class AssetsHandler
         }, 10, 3);
     }
 
-    private function enqueueLayoutAssets()
-    {
-        wp_enqueue_style(
-            'wp-handoff-layout',
-            get_template_directory_uri() . '/artisan/editor/assets/styles/layout.css',
-            [],
-            $this->version
-        );
-
-        wp_enqueue_script(
-            'wp-handoff-layout',
-            get_template_directory_uri() . '/artisan/editor/assets/scripts/layout.js',
-            ['jquery', 'acf-input', 'wp-handoff-editor'],
-            $this->version,
-            true
-        );
-    }
-
     public function addInlineStyles()
     {
-        if ($this->isLayoutScreen() || $this->isEditorMode()) {
+        if ($this->isLayoutScreen()) {
+            echo '<style>' . $this->getEditorStyles() . '</style>';
+        }
+    }
+
+    public function addEditorInlineStyles()
+    {
+        if ($this->isEditorMode()) {
             echo '<style>' . $this->getEditorStyles() . '</style>';
         }
     }
@@ -124,7 +155,7 @@ class AssetsHandler
 
     private function isLayoutScreen()
     {
-        $screen = get_current_screen();
+        $screen = function_exists('\get_current_screen') ? \get_current_screen() : null;
         return $screen && $screen->post_type === 'layout';
     }
 

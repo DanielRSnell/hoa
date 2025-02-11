@@ -11,6 +11,12 @@ class FlexibleContent
 
     public function __construct($post = null)
     {
+        /**
+         * Change controller to just handle a passed context to extract compoennts for live render.
+         * Context creation and management should be handled at the controller level.
+         * This prevents black box functionality allowing the developer to extend without additional knowledge other than standard
+         * WordPress ecosystem knowledge.
+         */
         $this->context = Timber::context();
         $this->post = $post ?: Timber::get_post();
         $this->context['post'] = $this->post;

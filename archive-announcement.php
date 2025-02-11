@@ -8,7 +8,7 @@ $context['posts'] = Timber::get_posts();
 $context['title'] = get_the_archive_title();
 
 // Get editor instance
-$editor = Editor::getInstance();
+$editor = Editor::getInstance(); // Init Editor Instance for Live Editing
 
 // Try to render editor first
 if ($editor->render($context)) {
